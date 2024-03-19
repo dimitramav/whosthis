@@ -7,4 +7,7 @@
   &:hover {
     color: $light;
   }
+  &:active {
+    color: $light !important;
+  }
 }

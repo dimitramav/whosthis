@@ -1,0 +1,9 @@
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 600px;
+  img {
+    width: -webkit-fill-available;
+  }
+}

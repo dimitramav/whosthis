@@ -43,43 +43,37 @@ const CameraStreamer = () => {
     };
   }, []);
 
+  const button = (
+    <div align="center">
+      <button
+        type="button"
+        className="btn btn-primary btn-lg main"
+        onClick={streamCamVideo}
+      >
+        <h4>Identify User</h4>
+      </button>
+    </div>
+  );
   return (
-    <>
-      <div className="container">
-        <div className="row p-5">
-          <div class="col"></div>
-          {streamVideo ? (
-            <div class="col  video-placeholder">
-              {" "}
-              <video
-                style={{ width: "inherit", height: 590 }}
-                autoPlay={true}
-                id="videoElement"
-                controls
-              ></video>
-            </div>
-          ) : (
-            <div class="col gif-placeholder">
-              <img src={faceidGIF}></img>
-            </div>
-          )}
-          <div class="col"></div>
+    <div className="col-3 main-placeholder">
+      {streamVideo ? (
+        <div className=" video-placeholder" align="center">
+          {" "}
+          <video
+            style={{ width: "inherit", height: 520 }}
+            autoPlay={true}
+            id="videoElement"
+            controls
+          ></video>
+          <b className="text-danger Blink">&#11044;</b>
         </div>
-        <div className="row">
-          <div class="col"></div>
-          <div class="col" align="center">
-            <button
-              type="button"
-              class="btn btn-primary btn-lg main"
-              onClick={streamCamVideo}
-            >
-              <h4>Identify User</h4>
-            </button>
-          </div>
-          <div class="col"></div>
+      ) : (
+        <div className=" gif-placeholder" align="center">
+          <img src={faceidGIF}></img>
         </div>
-      </div>
-    </>
+      )}
+      {button}
+    </div>
   );
 };
 
