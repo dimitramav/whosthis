@@ -1,0 +1,16 @@
+.gif-placeholder,
+.video-placeholder {
+  border-radius: 0.5rem;
+  border: 6px solid $primary;
+  height: 600px;
+  padding: 0px;
+  img {
+    border-radius: 0.5rem;
+    height: 588px;
+    width: inherit;
+  }
+  video {
+    background-color: $light2;
+    object-fit: contain;
+  }
+}
