@@ -1,4 +1,4 @@
 import { createContext } from "react";
 
-const MyContext = createContext();
-export default MyContext;
+const Context = createContext({ name: {}, setName: () => {} });
+export default Context;

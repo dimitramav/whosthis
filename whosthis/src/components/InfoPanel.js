@@ -1,27 +1,36 @@
-import users from "./assets/users.avif";
-import { useState, useCallback } from "react";
-const Users = () => {
-  const [name, setName] = useState("");
+import users from "../assets/users.avif";
+import { useState, useContext } from "react";
+import Context from "../Context";
+const InfoPanel = () => {
+  const [tempName, setTempName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const { setName } = useContext(Context);
+
   const submitName = (event) => {
     event.preventDefault();
     setSubmitted(true);
-    console.log(name);
+    setName(tempName);
   };
 
   return (
     <div className="col-3 side-panel ">
+      <div align="center">
+        <h3>STEP 1: INSERT USER INFORMATION</h3>
+      </div>
       <img src={users}></img>
       <form>
         <div className="input-group mb-3">
           <input
-            value={name}
+            value={tempName}
             type="text"
             className="form-control"
             placeholder="What's your name?"
             onChange={(e) => {
-              if (submitted) setSubmitted(false);
-              setName(e.target.value);
+              if (submitted) {
+                setName("");
+                setSubmitted(false);
+              }
+              setTempName(e.target.value);
             }}
           />
           <button
@@ -37,4 +46,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default InfoPanel;
