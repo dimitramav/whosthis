@@ -15,3 +15,12 @@
 .secondary-color {
   color: $secondary !important;
 }
+
+canvas {
+    z-index:1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 360px;
+}
