@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import faceidGIF from "../assets/face-id.gif";
 import Context from "../Context";
-const CameraStreamer = () => {
-  const [streamVideo, setStreamVideo] = useState(false);
-  const [userIdentified, setUserIdentified] = useState(false);
-  const { name } = useContext(Context);
+const CameraDetectionStreamer = () => {
+  const [streamDetection, setStreamDetection] = useState(false);
+  const { name, prediction, setPrediction } = useContext(Context);
   const Ref = useRef(null);
   const [timer, setTimer] = useState("00:00:30");
 
@@ -15,7 +14,7 @@ const CameraStreamer = () => {
       video: true,
     };
     console.log(navigator.mediaDevices);
-    setStreamVideo(true);
+    setStreamDetection(true);
 
     navigator.mediaDevices
       .getUserMedia(constraints)
@@ -45,7 +44,7 @@ const CameraStreamer = () => {
         track.stop();
       });
     }
-    setStreamVideo(false);
+    setStreamDetection(false);
   };
 
   const getTimeRemaining = (e) => {
@@ -75,7 +74,7 @@ const CameraStreamer = () => {
           (seconds > 9 ? seconds : "0" + seconds)
       );
     } else {
-      setUserIdentified(true);
+      setPrediction(true);
       stopStream();
     }
   };
@@ -103,19 +102,18 @@ const CameraStreamer = () => {
 
   useEffect(() => {
     if (name === "") {
-      console.log("fe");
-      setUserIdentified(false);
+      setPrediction(undefined);
     }
   }, [name]);
 
   let footer;
 
-  if (name !== "" && !streamVideo) {
-    if (userIdentified) {
+  if (name !== "" && !streamDetection) {
+    if (prediction !== undefined) {
       footer = (
         <div className="footer">
           <h4>
-            <span className="primary-color">{name}</span> has been identified
+            <span className="primary-color">{name}</span> has been detected
           </h4>
           <i class="bi bi-check-circle primary-color"></i>{" "}
         </div>
@@ -128,7 +126,7 @@ const CameraStreamer = () => {
             class="btn btn-primary"
             onClick={streamCamVideo}
           >
-            <h4>Identify {name}</h4>
+            <h4>Detect {name}</h4>
           </button>
         </div>
       );
@@ -137,18 +135,18 @@ const CameraStreamer = () => {
     footer = (
       <div align="center">
         <button type="button" style={{ visibility: "hidden" }}>
-          <h4>Identify {name}</h4>
+          <h4>Detect {name}</h4>
         </button>
       </div>
     );
   }
 
   return (
-    <div className="col-3 main-placeholder">
+    <div className="col-4 main-placeholder">
       <div align="center">
-        <h3>STEP 2: IDENTIFY USER</h3>
+        <h3>STEP 2: DETECT USER</h3>
       </div>
-      {streamVideo ? (
+      {streamDetection ? (
         <div className=" video-placeholder" align="center">
           {" "}
           <video
@@ -164,7 +162,7 @@ const CameraStreamer = () => {
         </div>
       ) : (
         <div className=" gif-placeholder" align="center">
-          <img src={faceidGIF}></img>
+          <img src={faceidGIF} alt="face ID"></img>
         </div>
       )}
       {footer}
@@ -172,4 +170,4 @@ const CameraStreamer = () => {
   );
 };
 
-export default CameraStreamer;
+export default CameraDetectionStreamer;

@@ -33,6 +33,11 @@ h4 {
   margin-block-end: 0;
 }
 
-p {
+p,
+label {
   font-size: 100%;
+}
+
+.radio-label {
+  font-size: 90%;
 }

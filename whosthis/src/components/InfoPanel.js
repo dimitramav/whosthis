@@ -1,25 +1,48 @@
-import users from "../assets/users.avif";
+import objectDetectionImage from "../assets/object-detection.jpg";
 import { useState, useContext } from "react";
 import Context from "../Context";
 const InfoPanel = () => {
   const [tempName, setTempName] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const { setName } = useContext(Context);
-
+  const { setName, setSelectedModel, selectedModel } = useContext(Context);
+  const models = [
+    { id: "model-1", title: "Model 1" },
+    { id: "model-2", title: "Model 2" },
+    { id: "model-3", title: "Model 3" },
+  ];
   const submitName = (event) => {
     event.preventDefault();
     setSubmitted(true);
     setName(tempName);
   };
 
-  return (
-    <div className="col-3 side-panel ">
-      <div align="center">
-        <h3>STEP 1: INSERT USER INFORMATION</h3>
+  let modelsElement = models.map((model) => {
+    return (
+      <div className="form-check" key={model.id}>
+        <input
+          className="form-check-input"
+          id={model.id}
+          type="radio"
+          onChange={() => {
+            setSelectedModel(model.id);
+          }}
+          checked={model.id === selectedModel}
+        />
+        <label className="radio-label" htmlFor={model.id}>
+          {model.title}
+        </label>
       </div>
-      <img src={users}></img>
+    );
+  });
+
+  return (
+    <div className="col-4 side-panel ">
+      <div align="center">
+        <h3>STEP 1: INSERT INFORMATION</h3>
+      </div>
+      <img src={objectDetectionImage} alt="object detection"></img>
       <form>
-        <div className="input-group mb-3">
+        <div className="input-group mb-5">
           <input
             value={tempName}
             type="text"
@@ -41,6 +64,8 @@ const InfoPanel = () => {
             Submit
           </button>
         </div>
+        <label>Select a model:</label>
+        {modelsElement}
       </form>
     </div>
   );

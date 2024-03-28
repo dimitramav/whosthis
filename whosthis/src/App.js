@@ -1,5 +1,6 @@
 import "./sass/main.scss";
-import CameraStreamer from "./components/CameraStreamer";
+import CameraDetectionStreamer from "./components/CameraDetectionStreamer";
+import CameraIdentificationStreamer from "./components/CameraIdentificationStreamer";
 import Context from "./Context";
 
 import fullLogo from "./assets/full-logo.png";
@@ -7,12 +8,17 @@ import InfoPanel from "./components/InfoPanel.js";
 import { useState } from "react";
 function App() {
   const [name, setName] = useState("");
-
+  const [selectedModel, setSelectedModel] = useState("model-1");
+  const [prediction, setPrediction] = useState(undefined);
   return (
     <Context.Provider
       value={{
         name,
         setName,
+        selectedModel,
+        setSelectedModel,
+        prediction,
+        setPrediction,
       }}
     >
       <div className="container-fluid">
@@ -21,14 +27,13 @@ function App() {
             <img src={fullLogo} alt="" heigth="50%" width="50%" />
           </a>
         </nav>
-        <div className="container-fluid main-body">
-          <div className="row ">
-            <div className="col-1"></div>
+        <div className="container main-body">
+          <div className="row  justify-content-start">
             <InfoPanel></InfoPanel>
             <div className="col-1"></div>
-            <CameraStreamer></CameraStreamer>
+            <CameraDetectionStreamer></CameraDetectionStreamer>
             <div className="col-1"></div>
-            <div className="col-3"></div>
+            <CameraIdentificationStreamer></CameraIdentificationStreamer>
           </div>
         </div>
       </div>
